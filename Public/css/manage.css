@@ -1,0 +1,24 @@
+html *{
+	margin: 0;
+	padding: 0;
+}
+.header{
+	height: 100px;
+	background-color: red;
+}
+
+.article{
+	height: 500px;
+}
+
+.leftmenu{
+	background-color: gray;
+	height: 500px;
+}
+.rightwindow{
+	background-color: red;
+	height: 500px;
+}
+
+.footer{
+}

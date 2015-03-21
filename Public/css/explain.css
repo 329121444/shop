@@ -1,0 +1,261 @@
+	html *{
+          margin: 0;
+          padding: 0;
+	}
+	body{
+		background-image: url(../images/wybj.jpg);
+		background-repeat: repeat-x;
+		width: 1124px;
+		margin: 0  auto;
+	}
+	.header{
+		height: 27px;
+		line-height: 27px;
+	}
+	.top{
+	
+	}
+	.top table{
+		width: 100%;
+	}
+	.top table tbody tr td{
+		color:#FFFFCC;
+	}
+	.topleftmenu{
+		list-style: none;
+		float: left;
+		color: #FFFFCC;
+		font-size: 12px;
+	}
+	.topleftmenu li{
+		float: left;
+		margin-left: 10px;
+	}
+
+   
+
+	.topright{
+		text-align: right;
+	}
+	.toprightmenu{
+		list-style: none;
+		float: right;
+		color: #FFFFCC;
+		font-size: 12px;
+	}
+	.toprightmenu li{
+		float: left;
+		margin-left: 10px;
+	}
+
+    .toprightmenu li img{
+		vertical-align:middle;
+		margin-bottom: 9px;
+    }
+    .toprightmenu li a{
+		color: #FFFFCC;
+		font-size: 12px;
+		margin:3px 5px 3px 5px;
+    }
+    .sousou{
+    	margin-top: 2px;
+		border: none;
+		padding: 1px 4px;
+		height: 28px;
+		width: 415px;
+		line-height: 2px;
+		color: #999999;
+		font-size: 14px;
+		font-family: "微软雅黑";
+		padding: 0;
+		outline:none;
+
+    }
+    .btnsearch{
+		height: 30px;
+		border: none;
+		line-height: 25px;
+		width: 78px;
+		cursor: pointer;
+		background-color: transparent;
+		margin: 0;
+		padding: 0;
+		outline:none;
+		border: none;
+	}
+	.seachform{
+	
+		margin-top: 0em;
+	}
+	.topseach{
+		width: 506px;
+		margin-top: 36px;
+		height: 42px;
+		background: url(../image/soubj.gif)  center no-repeat;
+		font-size: 12px;
+		padding: 0;
+		display: block;
+
+
+	}
+
+	.topseach ul{
+		list-style: none;
+		margin: 0;
+		padding: 0;
+		padding-top: 5px;
+		padding-left: 5px;
+	}
+
+	.topseach ul li{
+		float: left;
+		margin: 0;
+		padding: 0;
+		
+	}
+	.phoneinfo{
+		width: 280px;
+		float: right;
+		color: #FFFF00;
+		font-size: 20px		
+	}
+
+	.phoneinfo p{
+		text-align:right;
+		margin-top: 14px;
+	}
+    .topbody table{
+    	width: 100%;
+    	width: 1124px;
+    }
+	.body{
+		border: 8px solid white;
+		border-radius:2px;
+		height: 800px;
+		top: 157px;
+		width: 940px;
+		background-color: white;
+		position: absolute;
+	}
+	.topbody{
+		height: 130px;
+		width: 100%;
+
+	}
+    
+.navbar-yzh{
+    font-size: 13px;
+	font-family: "微软雅黑";
+	color: #fffff;
+	font-weight: bold;
+	letter-spacing:2px;
+
+}
+.home{
+	width: 50px;
+}
+
+
+
+.navbar{
+	width: 1124px;
+}
+.article{
+	width: 1170px;
+}
+.footer{
+	height: 50px;
+	text-align: center;
+	border:1px solid #E3E3E3;
+	margin-top: 5px;
+	padding-top:5px;
+	margin-left:3px;
+}
+
+
+
+
+
+
+.about{
+	height: 530px;
+	width:350px;
+	margin-left: 3px;
+	margin-top: -10px;
+}
+
+.aboutHeader{
+	width:350px;
+	height: 28px;
+	position: relative;	
+	background-color: transparent;
+	overflow: hidden;
+	border-right: 2px solid #E3E3E3;
+}
+
+.aboutHeader img{
+	width:700px;
+	height: 28px;
+	position: absolute;
+	z-index: 0;	
+	margin: 0;
+	padding:0;
+	left: 0;
+	top: 0;	
+}
+
+
+.aboutHeader p{
+	float: left;
+	display: block;
+	height: 28px;
+	line-height: 28px;
+	text-decoration: none;
+	padding: 0;
+	margin: 0;
+	margin-left:5px;
+	padding-left: 5px;
+	font-size: 14px;
+	font-family: "微软雅黑";
+	color: #FFFFFF;
+	z-index: 1;
+	position: relative;
+}
+
+
+
+.about  .aboutBody{
+	border:1px solid #E3E3E3;
+	width: 350px;
+	height: 500px;
+	overflow: hidden;
+}
+
+
+.explain{
+	height: 530px;
+	border:1px solid #E3E3E3;
+	margin-top: -10px;
+	width: 760px;
+	margin-left: 10px;
+}
+
+.explain .explainHeader{
+  height: 27px;
+  width: 760px;
+  margin-top: 0px;
+  overflow: hidden;
+  padding:0px;
+}
+.explain .explainHeader img{
+	width: 111px;
+	height: 27px;
+	margin-top: 2px;
+}
+
+.explain .explainBody{
+	height: 490px;
+	overflow: hidden;
+	width: 760px;
+}
+
