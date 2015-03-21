@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+<link rel="SHORTCUT ICON" href="__PUBLIC__/image/favicon.ico">
+<link rel="BOOKMARK" href="__PUBLIC__/image/favicon.ico">
+<script type="text/javascript" src="__PUBLIC__/js/jquery-1.9.1.min.js"></script>
+<script type="text/javascript" src="__PUBLIC__/js/index.js"></script>
+<script type="text/javascript" src="__PUBLIC__/js/flash.js"></script>
+<script type="text/javascript" src="__PUBLIC__/layer/layer.min.js"></script>
+<link type="text/css" rel="stylesheet" href="__PUBLIC__/bootstrap/css/bootstrap.min.css">
+<link type="text/css" rel="stylesheet" href="__PUBLIC__/css/index.css">
+<script type="text/javascript">
+    handler=new HandlerSystem();
+	$(function(){
+		var timeSystem=new DateTimeSystem();
+		var obj= timeSystem.getServerDate('__APP__?m=Index&a=getDateTime');
+	    var stringBuffer= new StringBuffer();
+	    stringBuffer.append('现在是:'+'&nbsp;'+'&nbsp;');
+	    stringBuffer.append(obj.getYear()+'年');
+	    stringBuffer.append(obj.getMonth()+'月');
+	    stringBuffer.append(obj.getDay()+'日'+'&nbsp;'+'&nbsp;');
+	    stringBuffer.append('&nbsp;'+'&nbsp;'+'星期'+obj.getWeeks());
+		$('.topleftmenu').children().first().next().html(stringBuffer.toString());
+		//添加滚动事件
+		handler.addScrollListener();
+		//开始执行动画
+		handler.startFlash();
+		//无缝向上滚动
+		handler.seamlessRollingTop('tradebody',8);
+		handler.seamlessRollingTop('productTypebody',12);
+		handler.changeColor('informationBody');
+		//视频滚动
+		handler.seamlessRollingLeft(1,30);
+		handler.addHistory('__APP__?m=Index&a=addHistory');
+	});
+</script>
+  
+<!--[if le IE 9] >
+<script src="__PUBLIC__/js/html5.js"></script>
+<![endif]-->
+<title>{$data.title}</title>
+
+</head> 
+ <div  class="header">
+   <div class="container top">
+ 	<table class="container">
+ 		<tbody>
+ 			<tr>
+ 			<td  class="topleft">
+ 					<ul class="topleftmenu">
+ 						<li>
+ 						 <p>{$data.headertitle}</p>
+ 						</li>
+ 						<li>
+ 					
+ 						</li>
+ 					</ul>
+ 			</td>
+ 			<td  class="topright">
+ 				<ul class="toprightmenu">
+ 					<li><img src="__PUBLIC__/images/sy.jpg"><a href="__ROOT__">返回首页</a></li>
+ 					<li><img src="__PUBLIC__/images/sc.jpg"><a href="javascript:handler.addFavorite(window.location,document.title);">加入收藏</a></li>
+ 					<li><img src="__PUBLIC__/images/lx.jpg"><a href="javascript:;">联系我们</a></li>
+ 				</ul>
+ 			</td>
+ 			</tr>
+ 		</tbody>
+ 	</table>
+
+   </div>
+ </div>
+ <div class="container article">
+ 	<div class="topbody">
+ 	 <table>
+ 	 	<tbody>
+ 	 		 <tr>
+ 	 		 	<td><img src="__PUBLIC__/image/logo.jpg"></td>
+ 	 		 	<td>
+	 	 		 	<form class="seachform" action="__APP__?m=Index&a=moreproduct" method="post">
+	 	 		 		<div class="topseach">
+	 	 		 			<ul>
+	 	 		 				<li>
+	 	 		 				<input class="sousou" value="请输入搜索产品名称或型号"    onfocus="javascript:if(this.value=='请输入搜索产品名称或型号')this.value='';" 
+	 	 		 					onblur="javascript:if(this.value=='')this.value='请输入搜索产品名称或型号';" name="searchValue" />
+	 	 		 				</li>
+	 	 		 				<li>
+	 	 		 					<input class="btnsearch" type="submit" value="" />
+	 	 		 				</li>
+	 	 		 			</ul>
+	 	 		 			
+	 	 		 		</div>
+	 	 		 	</form>
+ 	 		 	</td>
+ 	 		 	<td>
+ 	 		 		<div class="phoneinfo">
+				      <p>服务热线</p>
+				      <p>{$data.tel} / {$data.phone}</p>
+				      </div>
+ 	 		 	</td>
+ 	 		 </tr>
+ 	 	</tbody>
+ 	 </table>
+ 	</div>
+
+ 	<div class="body">
+ 		<nav class="navbar navbar-default navbar-yzh" role="navigation">
+		   <div>
+		      <ul class="nav navbar-nav">
+		       	 <li class="active"><a href="__ROOT__">&#12288;首&#12288;页&#12288;</a></li>
+		         <li><a href="__APP__?m=Index&a=explain">公司简介</a></li>
+		         <li><a href="__APP__?m=Index&a=morenews">行业资讯</a></li>
+		         <li><a href="__APP__?m=Index&a=moreproduct">产品展厅</a></li>
+		         <li><a href="__APP__?m=Index&a=lease">租赁中心</a></li>
+		         <li><a href="__APP__?m=Index&a=moretrade">成功案例</a></li>
+		         <li><a href="__APP__?m=Vedio&a=play">视频点播</a></li>
+		         <li><a href="__APP__?m=Index&a=dynamic">公司动态</a></li>
+		         <li><a href="__APP__?m=Index&a=down">下载中心</a></li>
+		         <li><a href="__APP__?m=Index&a=service">售后服务</a></li>
+		         <li><a href="__APP__?m=Index&a=callme">联系我们</a></li>
+		      </ul>
+		   </div>
+		</nav>
+		<div class="main">
+			<table>
+				<tbody>
+					<tr>
+						<td>
+							<div id="banner">
+								<div id="banner_bg"></div>
+								<!--标题背景-->
+								<div id="banner_info"></div>
+								<!--标题-->
+								<ul>
+								  <volist name="banner" key="i" id="obj">
+									<li>{$i}</li>
+								  </volist>
+									
+									
+								</ul>
+								<div id="banner_list">
+									<volist name="banner" key="i" id="obj">
+									<a href="<if condition="strtoupper($obj['html']) neq '' ">__APP__?m=Index&a=showbanner&bid={$obj.id}<else />javascript:void(0);</if>"  >
+									 	<img src="__ROOT__{$obj.path}" title="{$obj.title}" alt="{$obj.alt}" />
+									 </a>
+								  	</volist>
+
+									 
+								</div>
+							</div>
+
+
+						</td>
+						<td>
+							<div class="trade">
+								    <div class="tradeheader">
+								    	<a href="__APP__?m=Index&a=moretrade">更多>></a>
+								    </div>
+								     <div class="tradebody">
+								    	<ul style="margin-top: 0px;">
+									    	<volist name="trade" id="vo">
+									    		<li><a href="__APP__?m=Index&a=showtrade&tid={$vo.id}">{$vo.title}</a></li> 
+									    	</volist> 
+										</ul> 
+								    </div>									
+							</div>
+
+						</td>
+					</tr>
+				</tbody>
+			</table>
+			<table class="table_product">
+				<tbody>
+					<tr>
+						<td>
+							<div class="productType">
+								<div class="productTypeHeader"></div>
+								<div class="productTypebody">
+									<ul>
+										<volist name="producttype" id="obj">
+											<li><a href="__APP__?m=Index&a=moreproduct&tid={$obj.id}"><img src="__PUBLIC__/image/pic.gif">&nbsp;&nbsp;&nbsp;{$obj.name}</a></li>
+										</volist>
+									</ul>
+
+								</div>
+							</div>
+						</td>
+						<td>
+							<div class="product">
+								<div class="productHeader"><img src="__PUBLIC__/image/title_bj.jpg"><p>产品展厅</p> <a href="__APP__?m=Index&a=moreproduct">更多>></a></div>
+								<div class="productBody">
+									<ul>
+									<volist name="product" id="obj">
+										<li>
+											<div class="productimg">
+												<a href="__APP__?m=Index&a=moreproduct&pid={$obj.id}"><img src="__ROOT__{$obj.path}" title="{$obj.name}" /></a>
+											</div>
+											<div class="productinfo">
+												<p>型号:<a href="__APP__?m=Index&a=moreproduct&ml={$obj.model}">{$obj.model}</a></p>
+												<p>{$obj.name}</p>
+											</div>
+										</li>
+									</volist>
+									</ul>
+
+								</div>
+							</div>
+						</td>
+					</tr>
+				</tbody>
+			</table>
+
+			<table  class="table_other">
+				<tbody>
+					<tr>
+						<td>
+						<div class="information">
+						  <div class="informationHeader"><img src="__PUBLIC__/image/title_bj.jpg"><p>行业资讯</p> <a href="__APP__?m=Index&a=morenews">更多>></a></div>
+						  <div class="informationBody">
+						  	<ul>
+						  		<volist name="news" id="obj">
+						  		<li><a href="__APP__?m=Index&a=shownews&nid={$obj.id}">{$obj.title}</a></li>
+						  		</volist>
+						  	<ul>
+						  </div>	
+						</div>
+						<div class="movie">
+							<div class="movieHeader"><img src="__PUBLIC__/image/title_bj.jpg"><p>影视点播</p> <a href="">更多>></a></div>
+							  <div class="movieBody">
+							  	<div id="pictalk">
+							  		<div style="CURSOR: pointer" id="LeftArr" class="pleft"></div>
+							  		<div id="picbody">
+							  			<div id="picpanl">
+								  			<ul>
+								  				<volist name="vedio" id="obj">
+								  				<li><a href="__APP__?m=Vedio&a=play&vid={$obj.id}"><img src="__ROOT__{$obj.img}" title="{$obj.title}" alt="{$obj.title}" /></a></li>
+								  				</volist>
+								  			</ul>
+							  			</div>
+							  		</div>
+							  		<div style="CURSOR: pointer" id="RightArr" class="pright"></div>
+							  	</div>
+
+							  </div>
+							
+						</div>
+						</td>
+						<td>
+							<div class="about">
+							<div class="aboutHeader"><img src="__PUBLIC__/image/title_bj.jpg"><p>关于我们</p></div>
+							  <div class="aboutBody">
+							  	<div style="clear:both;"></div>
+							  		{$data.about}
+							  </div>
+							</div>
+						</td>
+					</tr>
+
+				
+				</tbody>
+			</table>
+		</div>
+	 	 	<div class="footer">
+				<include file="Index:footer" />
+	 	 	</div>
+ 	</div>
+ </div>
+
+</body>
+</html>

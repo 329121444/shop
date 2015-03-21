@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+<link rel="SHORTCUT ICON" href="__PUBLIC__/image/favicon.ico">
+<link rel="BOOKMARK" href="__PUBLIC__/image/favicon.ico">
+<script type="text/javascript" src="__PUBLIC__/js/jquery-1.9.1.min.js"></script>
+<script type="text/javascript" src="__PUBLIC__/js/index.js"></script>
+<script type="text/javascript" src="__PUBLIC__/js/flash.js"></script>
+<script type="text/javascript" src="__PUBLIC__/layer/layer.min.js"></script>
+<link type="text/css" rel="stylesheet" href="__PUBLIC__/bootstrap/css/bootstrap.min.css">
+<link type="text/css" rel="stylesheet" href="__PUBLIC__/css/service.css">
+<script type="text/javascript">
+    handler=new HandlerSystem();
+	$(function(){
+		var timeSystem=new DateTimeSystem();
+		var obj= timeSystem.getServerDate('__APP__?m=Index&a=getDateTime');
+	    var stringBuffer= new StringBuffer();
+	    stringBuffer.append('现在是:'+'&nbsp;'+'&nbsp;');
+	    stringBuffer.append(obj.getYear()+'年');
+	    stringBuffer.append(obj.getMonth()+'月');
+	    stringBuffer.append(obj.getDay()+'日'+'&nbsp;'+'&nbsp;');
+	    stringBuffer.append('&nbsp;'+'&nbsp;'+'星期'+obj.getWeeks());
+		$('.topleftmenu').children().first().next().html(stringBuffer.toString());
+		handler.addScrollListener();
+	});
+</script>
+<!--[if le IE 9] >
+<script src="__PUBLIC__/js/html5.js"></script>
+<![endif]-->
+<title>{$s.title}</title>
+
+</head>
+<body>
+ <div  class="header">
+   <div class="container top">
+ 	<table class="container">
+ 		<tbody>
+ 			<tr>
+ 			<td  class="topleft">
+ 					<ul class="topleftmenu">
+ 						<li>
+ 						 <p>{$s.headertitle}</p>
+ 						</li>
+ 						<li>
+ 					
+ 						</li>
+ 					</ul>
+ 			</td>
+ 			<td  class="topright">
+ 				<ul class="toprightmenu">
+ 					<li><img src="__PUBLIC__/images/sy.jpg"><a href="__ROOT__">返回首页</a></li>
+ 					<li><img src="__PUBLIC__/images/sc.jpg"><a href="javascript:handler.addFavorite(window.location,document.title);">加入收藏</a></li>
+ 					<li><img src="__PUBLIC__/images/lx.jpg"><a href="javascript:;">联系我们</a></li>
+ 				</ul>
+ 			</td>
+ 			</tr>
+ 		</tbody>
+ 	</table>
+
+   </div>
+ </div>
+ <div class="container article">
+ 	<div class="topbody">
+ 	 <table>
+ 	 	<tbody>
+ 	 		 <tr>
+ 	 		 	<td><img src="__PUBLIC__/image/logo.jpg"></td>
+ 	 		 	<td>
+	 	 		 	<form class="seachform" action="__APP__?m=Index&a=moreproduct" method="post">
+	 	 		 		<div class="topseach">
+	 	 		 			<ul>
+	 	 		 				<li>
+	 	 		 				<input class="sousou" value="请输入搜索产品名称或型号"    onfocus="javascript:if(this.value=='请输入搜索产品名称或型号')this.value='';" 
+	 	 		 					onblur="javascript:if(this.value=='')this.value='请输入搜索产品名称或型号';" name="searchValue" />
+	 	 		 				</li>
+	 	 		 				<li>
+	 	 		 					<input class="btnsearch" type="submit" value="" />
+	 	 		 				</li>
+	 	 		 			</ul>
+	 	 		 			
+	 	 		 		</div>
+	 	 		 	</form>
+ 	 		 	</td>
+ 	 		 	<td>
+ 	 		 		<div class="phoneinfo">
+				      <p>服务热线</p>
+				      <p>{$s.tel} / {$s.phone}</p>
+				      </div>
+ 	 		 	</td>
+ 	 		 </tr>
+ 	 	</tbody>
+ 	 </table>
+ 	</div>
+
+ 	<div class="body">
+ 		<nav class="navbar navbar-default navbar-yzh" role="navigation">
+		   <div>
+		      <ul class="nav navbar-nav">
+		       	 <li><a href="__ROOT__">&#12288;首&#12288;页&#12288;</a></li>
+		         <li><a href="__APP__?m=Index&a=explain">公司简介</a></li>
+		         <li><a href="__APP__?m=Index&a=morenews">行业资讯</a></li>
+		         <li><a href="__APP__?m=Index&a=moreproduct">产品展厅</a></li>
+		         <li><a href="__APP__?m=Index&a=lease">租赁中心</a></li>
+		         <li><a href="__APP__?m=Index&a=moretrade">成功案例</a></li>
+		         <li><a href="__APP__?m=Vedio&a=play">视频点播</a></li>
+		         <li><a href="__APP__?m=Index&a=dynamic">公司动态</a></li>
+		         <li><a href="__APP__?m=Index&a=down">下载中心</a></li>
+		         <li class="active"><a href="__APP__?m=Index&a=service">售后服务</a></li>
+		         <li><a href="__APP__?m=Index&a=callme">联系我们</a></li>
+		      </ul>
+		   </div>
+		</nav>
+		<div class="main">
+			<table>
+				<tbody>
+					<tr>
+			    		<td>
+			    			<div class="callmeHeader"><img src="__PUBLIC__/image/title_bj.jpg"><p>联系我们</p></div>
+			    		</td>
+			    		<td rowspan="2">
+			    			<div class="service">
+			    				{$s.service}
+			    			</div>
+			    		</td>
+			    	</tr>
+					<tr>
+				 		<td class="left" align="top">
+				 		<div style="clear:both;"></div>
+				 			<div class="callmeBody">
+				 				{$s.callme}
+				 			</div>
+				 		</td>
+					</tr>
+
+				</tbody>
+			</table>
+		</div>
+		<div class="footer">
+			<include file="Index:footer" />	
+		</div>
+ 	</div>	
+ </div>
+</body>
+</html>
