@@ -182,15 +182,7 @@ CREATE TABLE `shop_manage` (
 -- ----------------------------
 -- Records of shop_manage
 -- ----------------------------
-INSERT INTO `shop_manage` VALUES ('1', '451658842', 'e10adc3949ba59abbe56e057f20f883e', '329121444@qq.com', 'administrator', '0', '0', '四川成都', '1', '2014-09-05', '3000-01-01', '1');
-INSERT INTO `shop_manage` VALUES ('4', '617265194', 'c4ca4238a0b923820dcc509a6f75849b', '329121444@qq.com', '测试账号', '0', '1', '四川成都双流县', '2', '2014-09-09', '3000-01-01', '1');
-INSERT INTO `shop_manage` VALUES ('5', '329121444', 'e10adc3949ba59abbe56e057f20f883e', '329121444@qq.com', '彭大爷', '0', '0', '四川成都双流县', '1', '2014-09-10', '3000-01-01', '1');
-INSERT INTO `shop_manage` VALUES ('6', 'pengfugui', 'e10adc3949ba59abbe56e057f20f883e', '329121444@qq.com', '彭大爷', '0', '0', '', '1', '2014-09-10', '3000-01-01', '0');
-INSERT INTO `shop_manage` VALUES ('7', '396578520', '0525d9add2e2c53aa140ae25a1342a32', '396578520@qq.com', '唐晓英', '1', '0', '1', '1', '2014-09-11', '3000-01-01', '0');
-INSERT INTO `shop_manage` VALUES ('8', 'pfg1991513', '899f434b9687f3b6af3593fdc8efd02e', '329121444@qq.com', '彭福贵', '0', '0', '四川成都双流县', '0', '2014-09-26', '3000-01-01', '0');
-INSERT INTO `shop_manage` VALUES ('9', '451658842', '27db22f3a0aacd5bd85762121e2c8f28', '451658842@qq.com', '闫志会', '0', '0', '西安碑林区李家村万达广场', '1', '2014-09-29', '3000-01-01', '1');
-INSERT INTO `shop_manage` VALUES ('10', 'linxiaoyan', 'e10adc3949ba59abbe56e057f20f883e', '329121444@qq.com', 'xiaoxiao', '0', '0', '山西晋中', '4', '2014-09-30', '3000-01-01', '1');
-
+INSERT INTO `shop_manage` VALUES ('1', '329121444', 'e10adc3949ba59abbe56e057f20f883e', '329121444@qq.com', 'administrator', '0', '0', '四川成都', '1', '2014-09-05', '3000-01-01', '1');
 -- ----------------------------
 -- Table structure for shop_message
 -- ----------------------------
