@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+<link rel="SHORTCUT ICON" href="__PUBLIC__/image/favicon.ico">
+<link rel="BOOKMARK" href="__PUBLIC__/image/favicon.ico">
+<link rel="stylesheet" type="text/css" href="__PUBLIC__/css/header.css">
+<script type="text/javascript" language="javascript" src="__PUBLIC__/js/jquery-1.9.1.min.js"></script>
+<script type="text/javascript" language="javascript" src="__PUBLIC__/js/index.js"></script>
+<script type="text/javascript">
+var oplist = [];
+<volist name="data" id="obj" key="i">
+    oplist.push('{$obj.config}');
+</volist>
+$(document).ready(function() {
+	$('#nav').find("a").click(function() {
+		var id = $(this).attr('id');
+		$.each(oplist, function(i, n) {
+			$('#'+n).attr('class', 'inactive');
+		});
+		$(this).parents("li").attr('class', 'active');
+	});
+    var timeSystem=new DateTimeSystem();
+        var obj= timeSystem.getServerDate('__APP__?m=Index&a=getDateTime');
+        var stringBuffer= new StringBuffer();
+        stringBuffer.append('现在是:'+'&nbsp;');
+        stringBuffer.append(obj.getYear()+'年');
+        stringBuffer.append(obj.getMonth()+'月');
+        stringBuffer.append(obj.getDay()+'日'+'&nbsp;');
+        stringBuffer.append('&nbsp;'+'星期'+obj.getWeeks());
+        $('#timeClock').html(stringBuffer.toString());
+
+    $('.parentMenu').click(function(){
+            var url=$(this).attr('url');
+            window.top.frames["menu"].location.href=url;
+            window.top.frames["main"].location.href='__APP__?m=Manage&a=main';
+        });
+});
+</script>
+<!--[if le IE 9] >
+<script src="__PUBLIC__/js/html5.js"></script>
+<![endif]-->
+</head>
+
+<body>
+<div id="all">
+	<div id="banner"><h1>{$headertitle}后台管理</h1></div>
+    <div id="nav">
+    	<ul>
+        <if condition="count($data) gt 0">
+            <volist name="data" id="obj" key="i">
+              <if condition="$i eq count($data)">
+                    <li class="active"   id="{$obj.config}"><a url="__APP__?m=Manage&a=getChildren&pid={$obj.id}"  href="javascript:void(0);" class="parentMenu">{$obj.name}</a></li>
+               <else/>
+                    <li class="inactive" id="{$obj.config}"><a url="__APP__?m=Manage&a=getChildren&pid={$obj.id}"  href="javascript:void(0);" class="parentMenu">{$obj.name}</a></li>
+              </if>
+             
+            </volist>
+          <else/>
+           <li class="active" ><a href="javascript:void(0);" >预览账号</a></li>
+          </if>
+        </ul>
+    </div>
+    <div id="main">
+    	<div id="welcome">
+            <table style="overflow:hidden;">
+                <tbody>
+                    <tr>
+                        <td>欢迎你回来,{$manage['name']}!</td>
+                        <td align="center"><img src="__PUBLIC__/images/clock.gif" style="float:left;margin-top:1px" /></td>
+                        <td id="timeClock"></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div id="adminop">
+            <ul>
+               <li><a href="__APP__?m=Manage&a=exitSystem">退出管理</a></li>
+               <li><a href="__APP__?m=Manager&a=updatepsd" target="main">修改密码</a></li>
+               <li><a href="javascript:parent.location.reload();">管理首页</a></li>
+            </ul>
+        </div>
+    </div>
+</div>
+</body>
+</html>

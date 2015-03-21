@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+<link rel="SHORTCUT ICON" href="__PUBLIC__/image/favicon.ico">
+<link rel="BOOKMARK" href="__PUBLIC__/image/favicon.ico">
+<script type="text/javascript" language="javascript" src="__PUBLIC__/js/jquery-1.9.1.min.js"></script>
+<script type="text/javascript" language="javascript" src="__PUBLIC__/js/check.js"></script>
+<script type="text/javascript" language="javascript" src="__PUBLIC__/layer/layer.min.js"></script>
+<script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=4580d8d9fc47d9fadca977b6bca97f2d"></script>
+<script type="text/javascript" src="__PUBLIC__/ueditor/ueditor.config.js"></script>
+<script type="text/javascript" src="__PUBLIC__/ueditor/ueditor.all.js"></script>
+<link type="text/css" rel="stylesheet" href="__PUBLIC__/css/style.css">
+<link type="text/css" rel="stylesheet" href="__PUBLIC__/css/default.css">
+
+
+<!--[if le IE 9] >
+<script src="__PUBLIC__/js/html5.js"></script>
+<![endif]-->
+
+<script type="text/javascript">
+$(function(){
+
+	<if condition="$_GET['result'] eq 1">
+		 layer.alert('操作成功!',1);
+		<elseif condition="$_GET['result'] eq 11"/>
+		 layer.alert('操作失败!');
+	</if>	
+	var demo=$(".registerform").Validform({
+		tiptype:3,
+		label:".label",
+		showAllError:true,
+		postonce:true
+	});
+	$('#container').css('height','500px');
+	var p='{$s.points}';
+
+	var map = new BMap.Map('container');
+	if (p!='') {
+		var arr=p.split('&');
+		var point = new BMap.Point(arr[0],arr[1]);
+		var marker = new BMap.Marker(point);  // 创建标注
+		map.addOverlay(marker);              // 将标注添加到地图中
+		map.centerAndZoom(point, 14);
+		marker.enableDragging();
+		marker.addEventListener('dragend',function(e){
+			var p=e.point;
+			$('#points').val(p.lng+'&'+p.lat);
+		});
+
+	}else{
+		map.centerAndZoom('西安', 14);
+		map.addEventListener('click',addMyMarker);
+
+		function  addMyMarker(e){
+			var point = new BMap.Point(e.point.lng,e.point.lat);
+			var p=e.point;
+			$('#points').val(p.lng+'&'+p.lat);
+			var marker = new BMap.Marker(point);// 创建标注
+			map.addOverlay(marker); 
+			marker.enableDragging();
+			marker.addEventListener('dragend',function(e){
+			var p=e.point;
+			$('#points').val(p.lng+'&'+p.lat);
+			});
+			map.removeEventListener('click',addMyMarker);
+		}
+
+
+
+	}
+
+	var navigationControl = new BMap.NavigationControl({
+		    // 靠左上角位置
+		    anchor: BMAP_ANCHOR_TOP_LEFT,
+		    // LARGE类型
+		    type: BMAP_NAVIGATION_CONTROL_LARGE,
+		    // 启用显示定位
+		    enableGeolocation: true
+		  });
+	map.addControl(navigationControl);	
+
+	
+});
+</script>
+</head>
+
+<body>
+<div class="header"></div>
+<div class="article">
+	<div class="main">
+	    <div class="wraper">
+	    	<h2 class="green">地理位置:</h2>
+	        <form  action="__APP__?m=System&a=updatemap" method="post" class="registerform">
+	            <ul>
+	            	<li>
+	                    <label class="label"><span class="need">*</span> 名称：</label>
+	                    <input  nullmsg="公司名字为空!" datatype="*1-30" name="name" class="inputxt" type="text"  errormsg="请输入1-30个任意字符!" maxlength="30"  value="{$s.name}" />
+	            	</li>
+	            	<li>
+	                    <label class="label"><span class="need">*</span> 地址：</label>
+	                    <input nullmsg="地址不能为空!" datatype="*1-100" name="address" class="inputxt" type="text"  errormsg="请输入1-100个任意字符!" maxlength="100" value="{$s.address}" />
+	            	</li>
+	            	<li style="display:none;">
+	                    <label class="label"><span class="need">*</span> points：</label>
+	                    <input type="text" dataType="empty|*" name="points" id="points" value="{$s.points}" class="inputxt" />
+	            	</li>
+	            </ul>
+	            <h2>地图</h2>
+           		<div id="container">
+           			
+           		</div> 
+	            <div class="action">
+	                <input value="提 交" type="submit" id="btn_sub"/> <input value="重 置"  type="reset" id="btn_reset"/>
+	            </div>
+	        </form>
+
+	        <h2>说明：</h2>
+	        <div class="tipmsg">
+	        	<p>1、带红色星号的为必须填内容。</p>
+	        </div>
+	         
+	    </div>
+	</div>
+</div>
+</body>
+</html>

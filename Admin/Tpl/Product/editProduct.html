@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+<link rel="SHORTCUT ICON" href="__PUBLIC__/image/favicon.ico">
+<link rel="BOOKMARK" href="__PUBLIC__/image/favicon.ico">
+<link type="text/css" rel="stylesheet" href="__PUBLIC__/css/style.css">
+<link type="text/css" rel="stylesheet" href="__PUBLIC__/css/default.css">
+<script type="text/javascript"  src="__PUBLIC__/js/jquery-1.9.1.min.js"></script>
+<script type="text/javascript"  src="__PUBLIC__/layer/layer.min.js"></script>
+<script type="text/javascript" src="__PUBLIC__/ueditor/ueditor.config.js"></script>
+<script type="text/javascript" src="__PUBLIC__/ueditor/ueditor.all.js"></script>
+<script type="text/javascript"  src="__PUBLIC__/js/check.js"></script>
+<script type="text/javascript">
+	$(function(){
+				<if condition="$_GET['result'] eq 1">
+				 layer.alert('操作数据成功!',1);
+				<elseif condition="$_GET['result'] eq 11"/>
+				 layer.alert('操作数据失败!');
+				<elseif condition="$_GET['result'] eq 10"/>
+				layer.alert('上传文件格式错误!');
+				</if>	
+				var demo=$(".registerform").Validform({
+				tiptype:3,
+				label:".label",
+				showAllError:true,
+				postonce:true
+				});
+			 $('#btn_sub').click(function(){
+		       UE.getEditor('textarea').sync();
+		       $('.registerform').submit();
+			 });
+			 $('#btn_reset').click(function(){
+			 	 $('.registerform')[0].reset();
+			 });	
+	});
+</script>
+<!--[if le IE 9] >
+<script type="text/javascript" language="javascript" src="__PUBLIC__/js/html5.js"></script>
+<![endif]-->
+</head>
+
+<body>
+<div class="header"></div>
+<div class="article">
+	<div class="main">
+	    <div class="wraper">
+	    	<h2 class="green">"{$product.name}"编辑:</h2>
+	        <form  action="__APP__?m=Product&a=updateproductinfo&pid={$product.id}" method="post" class="registerform" >
+	            <ul>
+	             	<li>
+                        <label class="label"><span class="need">*</span> 产品类型：</label>
+	                    <select name="tid">
+	                    	<volist name="data" id="obj">
+                    			<if condition="($product['tid'] eq $obj['id'])">
+                    				<option selected="selected" value="{$obj.id}">{$obj.name}</option>
+                    				<else/>
+                    				<option value="{$obj.id}">{$obj.name}</option>
+                    			</if>
+	                    		
+	                    	</volist>
+	                    </select>
+	                </li>  
+	               <li>
+	                    <label class="label"><span class="need">*</span> 产品名称：</label>
+	                    <input nullmsg="产品名字不能为空!" datatype="*1-30" name="name" class="inputxt" type="text"  errormsg="请输入1-30个任意字符!" maxlength="30"  value="{$product.name}" />
+	                </li>
+	                <li>
+	                    <label class="label"><span class="need">*</span> 产品型号：</label>
+	                    <input nullmsg="产品名字不能为空!" datatype="*1-30" name="model" class="inputxt" type="text"  errormsg="请输入1-30个任意字符!" maxlength="30" value="{$product.model}" />
+	                </li>
+	                <li>
+	                	<div class="clear"></div>
+	                	<label class="label"><span class="need">*</span> 产品简介：</label><br/>
+	                	<textarea name="explain" nullmsg="产品简介不能为空!"  datatype="*1-500" errormsg="请输入1-500个任意字符!" maxlength="500" style="margin-left:90px;"  class="inputxt" >
+	                		{$product.explain}
+	                	</textarea>
+	                </li>
+	                <li>
+	                	<h2>详情:</h2>
+	                	<script type="text/plain" id="textarea" name="html">
+                   		   {$product.html}
+                   		   </script>
+						    <script type="text/javascript">
+						      var editor = new UE.ui.Editor();
+						      editor.render("textarea");
+						    </script>
+	                </li> 
+	   	
+	            </ul>
+	        </form>
+	         <div class="action">
+	      			<input value="提 交" type="submit" id="btn_sub"/> <input value="重 置"  type="reset" id="btn_reset"/>
+	            </div>
+	        <h2>说明：</h2>
+	        <div class="tipmsg">
+	        	<p>1、带红色星号的为必须填内容。</p>
+	        </div>
+	         
+	    </div>
+	</div>
+</div>
+</body>
+</html>

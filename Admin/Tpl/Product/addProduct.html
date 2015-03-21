@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+<link rel="SHORTCUT ICON" href="__PUBLIC__/image/favicon.ico">
+<link rel="BOOKMARK" href="__PUBLIC__/image/favicon.ico">
+<link type="text/css" rel="stylesheet" href="__PUBLIC__/css/style.css">
+<link type="text/css" rel="stylesheet" href="__PUBLIC__/css/default.css">
+<link type="text/css" rel="stylesheet" href="__PUBLIC__/uploadify/uploadify.css">
+<script type="text/javascript"  src="__PUBLIC__/js/jquery-1.9.1.min.js"></script>
+<script type="text/javascript"  src="__PUBLIC__/layer/layer.min.js"></script>
+<script type="text/javascript"  src="__PUBLIC__/js/check.js"></script>
+<script type="text/javascript"  src="__PUBLIC__/uploadify/jquery.uploadify.min.js?v={$rand}"></script>
+<style type="text/css">
+.imagelist{
+	margin: 0;
+	padding: 0;
+	border: 1px solid #E0E0E0;
+	height: 254px;
+	width: 780px;
+}
+.imagelist ul{
+
+	height: 254px;
+	width: 780px;
+}
+.imagelist li{
+    background: none repeat scroll 0 0 #F0F0F0;
+    border: 1px solid #E0E0E0;
+    display: inline;
+    float: left;
+	margin-right:10px;
+	margin-top:5px;
+    padding: 11px;
+    width: 160px;
+	height:220px;
+	overflow:hidden;
+	position: relative;
+	
+}
+.imagelist li em{
+    color: #999999;
+    display: block;
+    line-height: 18px;
+    padding: 8px 0px;
+}
+
+.imagelist li span.txt {
+    color: #FFFFFF;
+    display: block;
+    left: 11px;
+    line-height:25px;
+	height:25px;
+    bottom: 41px;
+    width: 160px;
+	opacity: 0.7;
+}
+.imagelist li span a.actbut{float:left;width:24px; height:24px; margin-top:3px;}
+</style>
+
+<script type="text/javascript">
+		function d(sid){
+			var p=$('#d'+sid).attr('data');
+			$.ajax({
+				url:'__APP__?m=FileUpload&a=del',
+				type:'post',
+				data:{path:p},
+				dataType:'json',
+				success:function(data){
+					var oData=eval(data);
+					if(oData['code']==1){
+						$('#d'+sid).parent().parent().animate({opacity:0.2},1000,function(){
+							$(this).remove();
+						});
+					}else{
+						layer.alert('删除文件失败!',1);
+					}
+
+				}
+			});
+		}
+		function m(sid){
+			var  oLi=$('#m'+sid).parent().parent();
+			var len=$(oLi).parent().children().length;
+			var temp=oLi.index()+1;
+			if(temp==len){
+				$(oLi).parent().children().first().before(oLi);
+			}else{
+				oLi.insertAfter($(oLi).next());
+			}
+		}
+
+	$(function(){
+		<if condition="$_GET['result'] eq 1">
+			 layer.alert('操作成功!',1);
+			<elseif condition="$_GET['result'] eq 11"/>
+			 layer.alert('操作失败!');
+		</if>
+		$("#upload").uploadify({
+			height        : 30,
+			swf           : '__PUBLIC__/uploadify/uploadify.swf',
+			uploader      : '__APP__?m=FileUpload&a=upload',
+			width         : 120,
+			buttonText	  : '选择文件',
+			auto		  : true,
+			buttonClass   :'btn',
+			sizeLimit: 5000000,
+			onSelect      :false,
+			removeCompleted: false,
+			onUploadSuccess: function(file, data, response) {
+				$('#progress').hide();
+				var oData=eval('('+data+')');
+				if(oData.status == 0){
+					layer.alert(data.message);
+					return false;
+				}
+
+				//上传成功
+				var id =new Date().getTime();
+				var html = '<li class="imageitem">';
+					html+= '<input type="hidden" name="file[]" value="'+oData.file+'">';
+					html+= '<img height="160" width="160" src="__ROOT__'+oData.file+'" />';
+					html+=  '<span class="txt">';
+					html+=  '<a title="删除" id="d'+id+'" data="'+oData.file+'" href="javascript:d('+id+');" ><img src="__PUBLIC__/image/remove.png" /></a>';
+					html+=  '<a title="移动" id="m'+id+'" href="javascript:m('+id+');"><img src="__PUBLIC__/image/right.png" /></a>';
+					html+=  '</span>';
+					html+=  '<em><textarea readonly="readonly" style=" height:20px;width:155px;">'+file.name+'</textarea></em>';
+					html+=  '</li>';
+				$('#image_result').append(html);
+			},
+			onUploadStart: function(){
+				var temp= $('#image_result').children().length;
+				if(temp<4){
+					$('#progress').text('正在上传.....');  //用户等待提示。
+				}else{
+					$('#progress').text('最多只可以上传四张图片.....'); 
+					$('#upload').uploadify('cancel','*');
+				}
+
+				
+			},
+			onInit: function (){  
+				$("#upload-queue").hide(); //隐藏上传队列                
+			}		
+		});
+	
+		var demo=$(".registerform").Validform({
+			tiptype:3,
+			label:".label",
+			showAllError:true,
+			postonce:true
+		});	
+
+		//表单验证
+		 $('.registerform').submit(function(){
+		 	var temp= $('#image_result').children().length;
+		 	if(temp>=1 &&temp<=4){
+		 		return  true;
+		 	}else{
+		 		layer.alert('您必须上传1到4张产品展示图');
+		 		return false;
+		 	}
+		 });
+
+	});
+
+
+</script>
+<!--[if le IE 9] >
+<script type="text/javascript" language="javascript" src="__PUBLIC__/js/html5.js"></script>
+<![endif]-->
+</head>
+
+<body>
+<div class="header"></div>
+<div class="article">
+	<div class="main">
+	    <div class="wraper">
+	    	<h2 class="green">添加新产品</h2>
+	        <form  action="__APP__?m=Product&a=saveProduct" method="post" class="registerform" >
+	            <ul>
+	             	<li>
+	                    <label class="label"><span class="need">*</span> 产品类型：</label>
+	                    <select name="tid">
+	                    	<volist name="data" id="obj">
+	                    		<option value="{$obj.id}">{$obj.name}</option>
+	                    	</volist>
+	                    </select>
+	                </li>  
+	                <li>
+	                    <label class="label"><span class="need">*</span> 产品名称：</label>
+	                    <input nullmsg="产品名字不能为空!" datatype="*1-30" name="name" class="inputxt" type="text"  errormsg="请输入1-30个任意字符!" maxlength="30"  />
+	                </li>
+	                <li>
+	                    <label class="label"><span class="need">*</span> 产品型号：</label>
+	                    <input nullmsg="产品名字不能为空!" datatype="*1-30" name="model" class="inputxt" type="text"  errormsg="请输入1-30个任意字符!" maxlength="30" />
+	                </li>
+	                <li>
+	                	<div class="clear"></div>
+	                	<label class="label"><span class="need">*</span> 产品简介：</label><br/>
+	                	<textarea name="explain" nullmsg="产品简介不能为空!"  datatype="*1-500" errormsg="请输入1-500个任意字符!" maxlength="500" style="margin-left:90px;"  class="inputxt" >
+	                		
+	                	</textarea>
+	                </li> 
+	                <li>
+	                	<label class="label"><span class="need">*</span> 图片上传：</label><br/>
+	                	<div>
+				              <div class="data_grid" style=" width:95%;float:left;padding:10px 20px 20px">
+				                		<div style=" margin-left:30px;">
+						                    <p>
+												<ul class="imagelist" id="image_result"></ul>
+						                    </p>
+						                </div>
+					                	<div style="clear:both"></div>
+						                <div class="even">
+						                    <div style="width:150px; float:left; margin-top:15px;"><a style="float:right" id="upload"></a>
+						                    </div>
+						                    <pre id="progress" style="margin-top:20px; float:left;"></pre>
+						                </div>
+					                	<div class="clear"></div>
+					            		</div>
+					            			<div class="clear"></div>
+					        	</div>
+	           			</div>
+	                </li>
+
+	            </ul>
+	            <div class="action">
+	      			<input value="提 交" type="submit" id="btn_sub"/> <input value="重 置"  type="reset" id="btn_reset"/>
+	            </div>
+	        </form>
+	        <h2>说明：</h2>
+	        <div class="tipmsg">
+	        	<p>1、带红色星号的为必须填内容。</p>
+	        	<p>2、产品图片默认上传列表的第一张为主图。</p>
+	        	<p>2、产品详情请在产品编辑中填写。</p>
+	        </div>
+	         
+	    </div>
+	</div>
+</div>
+</body>
+</html>

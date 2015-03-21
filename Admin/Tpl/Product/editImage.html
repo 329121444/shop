@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+<link rel="SHORTCUT ICON" href="__PUBLIC__/image/favicon.ico">
+<link rel="BOOKMARK" href="__PUBLIC__/image/favicon.ico">
+<link type="text/css" rel="stylesheet" href="__PUBLIC__/css/style.css">
+<link type="text/css" rel="stylesheet" href="__PUBLIC__/css/default.css">
+<script type="text/javascript"  src="__PUBLIC__/js/jquery-1.9.1.min.js"></script>
+<script type="text/javascript"  src="__PUBLIC__/js/ajaxfileupload.js"></script>
+<script type="text/javascript"  src="__PUBLIC__/layer/layer.min.js"></script>
+<script type="text/javascript"  src="__PUBLIC__/js/check.js"></script>
+<style type="text/css">
+.imagelist{
+	margin: 0;
+	padding: 0;
+	border: 1px solid #E0E0E0;
+	height: 254px;
+	width: 780px;
+}
+.imagelist ul{
+
+	height: 254px;
+	width: 780px;
+}
+.imagelist li{
+    background: none repeat scroll 0 0 #F0F0F0;
+    border: 1px solid #E0E0E0;
+    display: inline;
+    float: left;
+	margin-right:10px;
+	margin-top:5px;
+    padding: 11px;
+    width: 160px;
+	height:220px;
+	overflow:hidden;
+	position: relative;
+	
+}
+.imagelist li em{
+    color: #999999;
+    display: block;
+    line-height: 18px;
+    padding: 8px 0px;
+}
+
+.imagelist li span.txt {
+    color: #FFFFFF;
+    display: block;
+    left: 11px;
+    line-height:25px;
+	height:25px;
+    bottom: 41px;
+    width: 160px;
+	opacity: 0.7;
+}
+.imagelist li span a.actbut{float:left;width:24px; height:24px; margin-top:3px;}
+</style>
+
+<script type="text/javascript">
+	$(function(){
+		 //
+		 $('.delimg').click(function(){
+		 	var imgid=parseInt($(this).attr('imgid'));
+		 	var imgtype=parseInt($(this).attr('imgtype'));
+		 	var proid=parseInt($('#proid').val());
+		 	if(imgtype!=1){
+		 		layer.confirm('您确定要删除这张图片吗?',function(){
+					$.ajax({
+		 				url:'__APP__?m=Product&a=removeImage',
+		 				type:'post',
+		 				dataType:'json',
+		 				data:{'imgid':imgid},
+		 				async:false,
+		 				success:function(data){
+		 					var oData=eval(data);
+		 					if(oData['code']==-2){
+		 						layer.alert('请不要禁用脚本,或者修改脚本!', 0, function(){
+		 							window.location.href='__APP__?m=Product&a=editImage&pid='+proid;
+		 						});
+		 					}
+		 					if(oData['code']==-1){
+		 						layer.alert('主图不可被删除!');
+		 					}
+		 					if(oData['code']==0){
+		 						layer.alert('删除图片失败,请稍后重试!');
+		 					}
+		 					if(oData['code']==1){
+		 						window.location.href='__APP__?m=Product&a=editImage&pid='+proid;
+		 					}
+		 				},
+		 				error:function(){
+		 					layer.confirm('系统发生未知错误,请联系管理人员!',function(i){
+		 						layer.close(i);
+		 						window.location.href='__APP__?m=Product&a=modifyProduct';
+		 					},function(j){
+		 						layer.close(j);
+		 						window.location.href='__APP__?m=Product&a=modifyProduct';
+		 					});
+		 				}
+		 			});
+		 		},function(){
+		 			layer.alert('您取消了操作,不做更改!');
+		 		});
+		 	}else{
+		 		layer.alert('主图不可被删除!');
+		 	}
+		 });
+
+		//上传图片xubox_prompt
+	
+
+		$('#btn_upload').click(function(){
+			var imgid=parseInt($(this).attr('imgid'));
+		 	var imgtype=parseInt($(this).attr('imgtype'));
+		 	var proid=parseInt($('#proid').val());
+			var temp= $('#image_result').children().length;
+		 	if(temp>=1&&temp<4){
+		 		var  html='<input type="file" name="file" id="uploadFile"><br/><button id="btn_uploads" style="margin:20px 30px 20px 30px">上传</button>';
+		 		$.layer({
+				    type: 1,
+				    shade:[0.1, '#000'],
+				    area: ['auto', 'auto'],
+				    title: '文件上传：',
+				    border: [3,0.3,'black'],
+				    page: {html:html},
+				    success:function(i){
+				    	$('#btn_uploads').click(function(){
+				    		var f=$('#uploadFile').val();
+				    		if(f!=''){
+	    				     $.ajaxFileUpload({
+	 	                         url:'__APP__?m=Product&a=uploadImage',
+		                         secureuri:true, 
+		                         dataType: 'json',
+		                         data:{'pid':proid},  
+		                         fileElementId:'uploadFile', 
+		                         success: function(data,status)  
+		                         {
+		                         	var oData=eval(data);
+	                         	  	if(oData['code']==-3){
+				 						layer.alert('文件格式错误!', 0, function(){
+				 							window.location.href='__APP__?m=Product&a=editImage&pid='+proid;
+				 						});
+				 					}
+		                         	if(oData['code']==-2){
+				 						layer.alert('请不要禁用脚本,或者修改脚本!', 0, function(){
+				 							window.location.href='__APP__?m=Product&a=editImage&pid='+proid;
+				 						});
+				 					}
+				 					if(oData['code']==-1){
+				 						layer.alert('最多上传四张图片!');
+				 					}
+				 					if(oData['code']==0){
+				 						layer.alert('上传图片失败!');
+				 					}
+				 					if(oData['code']==1){
+				 						layer.alert('上传成功!', 0, function(){
+				 							window.location.href='__APP__?m=Product&a=editImage&pid='+proid;
+				 						});
+				 						
+				 					}
+
+		                         },
+		                         error: function (html,status,e)
+		                         {
+		                                layer.confirm('系统发生未知错误,请联系管理人员!',function(i){
+					 						layer.close(i);
+					 						window.location.href='__APP__?m=Product&a=modifyProduct';
+					 					},function(j){
+					 						layer.close(j);
+					 						window.location.href='__APP__?m=Product&a=modifyProduct';
+					 					});
+		                         }
+						     });
+
+				    		}else{
+				    			alert('您还未选择文件');
+				    		}
+				 		 });
+
+				    }
+				});
+		 	}else{
+		 		layer.alert('您最多只能上传4张图片!');
+		 		
+		 	}
+		});
+
+
+		//更新图片
+	    $('.modifyimg').click(function(){
+	    	var imgid=parseInt($(this).attr('imgid'));
+		 	var imgtype=parseInt($(this).attr('imgtype'));
+		 	var proid=parseInt($('#proid').val());
+	    	var  html='<input type="file" name="file" id="uploadFile"><br/><button id="btn_uploads" style="margin:20px 30px 20px 30px">上传</button>';
+		 		$.layer({
+				    type: 1,
+				    shade: [0.1, '#000'],
+				    area: ['auto', 'auto'],
+				    title: '文件更新：',
+				    border: [3,0.3,'black'],
+				    page: {html:html},
+				    success:function(i){
+				    	$('#btn_uploads').click(function(){
+				    		var f=$('#uploadFile').val();
+				    		if(f!=''){
+	    				     $.ajaxFileUpload({
+	 	                         url:'__APP__?m=Product&a=updateImage',
+		                         secureuri:true, 
+		                         dataType: 'json',
+		                         data:{'imgid':imgid},  
+		                         fileElementId:'uploadFile', 
+		                         success: function(data,status)  
+		                         {
+		                         	var oData=eval(data);
+		                         	if(oData['code']==-2){
+				 						layer.alert('文件格式错误!', 0, function(){
+				 							window.location.href='__APP__?m=Product&a=editImage&pid='+proid;
+				 						});
+				 					}
+	                         	  	
+		                         	if(oData['code']==-1){
+				 						layer.alert('请不要禁用脚本,或者修改脚本!', 0, function(){
+				 							window.location.href='__APP__?m=Product&a=editImage&pid='+proid;
+				 						});
+				 					}
+				 					if(oData['code']==0){
+				 						layer.alert('更新文件失败!', 0, function(){
+				 							window.location.href='__APP__?m=Product&a=editImage&pid='+proid;
+				 						});
+				 					}
+				 					if(oData['code']==1){
+				 						layer.alert('更新文件成功!', 0, function(){
+				 							window.location.href='__APP__?m=Product&a=editImage&pid='+proid;
+				 						});
+				 						
+				 					}
+
+		                         },
+		                         error: function (html,status,e)
+		                         {
+		                                layer.confirm('系统发生未知错误,请联系管理人员!',function(i){
+					 						layer.close(i);
+					 						window.location.href='__APP__?m=Product&a=modifyProduct';
+					 					},function(j){
+					 						layer.close(j);
+					 						window.location.href='__APP__?m=Product&a=modifyProduct';
+					 					});
+		                         }
+						     });
+
+				    		}else{
+				    			alert('您还未选择文件');
+				    		}
+				 		 });
+
+				    }
+				});
+
+
+
+
+	    });
+
+	});
+
+
+</script>
+<!--[if le IE 9] >
+<script type="text/javascript" language="javascript" src="__PUBLIC__/js/html5.js"></script>
+<![endif]-->
+</head>
+
+<body>
+<div class="header"></div>
+<div class="article">
+	<div class="main">
+	    <div class="wraper">
+	    	<h2 class="green">"{$product.name}"图片编辑</h2>
+	            <ul>
+	                  <li>
+	                	<label class="label"><span class="need">*</span> 图片上传：</label><br/>
+	                	<input type="hidden" id="proid" value="{$product.id}" />
+	                	<div>
+				              <div class="data_grid" style=" width:95%;float:left;padding:10px 20px 20px">
+				                		<div style=" margin-left:30px;">
+						                    <p>
+												<ul class="imagelist" id="image_result">
+													 <if condition="$productimg">
+													 	<volist name="productimg" id="obj" key="i">
+													 		<li class="imageitem">
+													 		<img height="160" width="160" src="__ROOT__{$obj.path}" />
+													 		<span class="txt">
+													 		<a title="删除"  class="delimg" imgid="{$obj.id}" imgtype="{$obj.type}" href="javascript:void(0);" ><img src="__PUBLIC__/image/remove.png" /></a>
+													 		<a title="编辑" class="modifyimg" imgid="{$obj.id}" imgtype="{$obj.type}"  href="javascript:javascript:void(0);"><img src="__PUBLIC__/image/right.png" /></a>
+													 		</span>
+													 		<em><textarea readonly="readonly" style=" height:20px;width:155px;"></textarea></em>
+													 		</li>
+													 	</volist>
+													 </if>
+												</ul>
+						                    </p>
+						                </div>
+						                <a href="javascript:void(0)" id="btn_upload">上传</a>
+					            		</div>
+					            			<div class="clear"></div>
+					        	</div>
+	           			</div>
+	                </li>
+
+	            </ul>
+	        <h2>说明：</h2>
+	        <div class="tipmsg">
+	        	<p>1、主图不可删除,最多上传四张图片。</p>
+	        </div>
+	         
+	    </div>
+	</div>
+</div>
+</body>
+</html>

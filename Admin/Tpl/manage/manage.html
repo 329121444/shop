@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+<link rel="SHORTCUT ICON" href="__PUBLIC__/image/favicon.ico">
+<link rel="BOOKMARK" href="__PUBLIC__/image/favicon.ico">
+<script type="text/javascript" src="__PUBLIC__/js/jquery-1.9.1.min.js"></script>
+<script type="text/javascript" src="__PUBLIC__/layer/layer.min.js"></script>
+<link type="text/css" rel="stylesheet" href="__PUBLIC__/bootstrap/css/bootstrap.min.css">
+<link type="text/css" rel="stylesheet" href="__PUBLIC__/css/manage.css">
+<!--[if le IE 9] >
+<script src="__PUBLIC__/js/html5.js"></script>
+<![endif]-->
+<title>{$headertitle}后台管理主界面</title>
+</head>
+<frameset cols="*" rows="136, *" id="frame_main"  border="0">
+    <frame src="__APP__?m=Manage&a=header" noresize="noresize" name="header">
+        
+    <frameset cols="240, *">
+    	<frame src="__APP__?m=Manage&a=getChildren&pid=<volist name="data" id="obj" key="i">
+              <if condition="$i eq count($data)">
+					{$obj.id}
+              </if>
+     </volist> " name="menu" />
+    	<frame src="__APP__?m=Manage&a=main" name="main">
+    </frameset>
+</frameset>
+<body>
+
+</body>
+</html>

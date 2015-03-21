@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+<link rel="SHORTCUT ICON" href="__PUBLIC__/image/favicon.ico">
+<link rel="BOOKMARK" href="__PUBLIC__/image/favicon.ico">
+<script type="text/javascript" language="javascript" src="__PUBLIC__/js/jquery-1.9.1.min.js"></script>
+<script type="text/javascript" language="javascript" src="__PUBLIC__/js/check.js"></script>
+<script type="text/javascript" language="javascript" src="__PUBLIC__/layer/layer.min.js"></script>
+<script type="text/javascript" src="__PUBLIC__/ueditor/ueditor.config.js"></script>
+<script type="text/javascript" src="__PUBLIC__/ueditor/ueditor.all.js"></script>
+<link type="text/css" rel="stylesheet" href="__PUBLIC__/css/style.css">
+<link type="text/css" rel="stylesheet" href="__PUBLIC__/css/default.css">
+
+
+<!--[if le IE 9] >
+<script src="__PUBLIC__/js/html5.js"></script>
+<![endif]-->
+
+<script type="text/javascript">
+$(function(){
+	<if condition="$_GET['result'] eq 1">
+		 layer.alert('操作成功!',1);
+		<elseif condition="$_GET['result'] eq 11"/>
+		layer.alert('操作失败!');
+	</if>			
+	var demo=$(".registerform").Validform({
+		tiptype:3,
+		label:".label",
+		showAllError:true,
+		postonce:true
+	});
+
+
+	 $('#btn_sub').click(function(){
+       UE.getEditor('textarea').sync();
+       $('.registerform').submit();
+ });
+	
+});
+</script>
+</head>
+
+<body>
+<div class="header"></div>
+<div class="article">
+	<div class="main">
+	    <div class="wraper">
+	    	<h2 class="green">租赁中心编辑：</h2>
+	        <form  action="__APP__?m=System&a=uplease" method="post" class="registerform">
+	            <ul>
+	                <li>
+                   		   <script type="text/plain" id="textarea" name="lease">
+                   		   {$data.lease}
+                   		   </script>
+						    <script type="text/javascript">
+						      var editor = new UE.ui.Editor();
+						      editor.render("textarea");
+						    </script>
+	                </li>    
+	            </ul>
+	        </form>
+	            <div class="action">
+	                <input value="提 交" type="submit" id="btn_sub"/> <input value="重 置"  type="reset" id="btn_reset"/>
+	            </div>
+	        
+	        
+	        <h2>说明：</h2>
+	        <div class="tipmsg">
+	        	<p>1、带红色星号的为必须填内容。</p>
+	        </div>
+	         
+	    </div>
+	</div>
+</div>
+</body>
+</html>

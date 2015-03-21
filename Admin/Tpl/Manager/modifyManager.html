@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+<link rel="SHORTCUT ICON" href="__PUBLIC__/image/favicon.ico">
+<link rel="BOOKMARK" href="__PUBLIC__/image/favicon.ico">
+<script type="text/javascript" language="javascript" src="__PUBLIC__/js/jquery-1.9.1.min.js"></script>
+<script type="text/javascript" language="javascript" src="__PUBLIC__/layer/layer.min.js"></script>
+<script type="text/javascript" language="javascript" src="__PUBLIC__/js/confirm.min.js"></script>
+<link type="text/css" rel="stylesheet" href="__PUBLIC__/bootstrap/css/bootstrap.min.css">
+<!--[if le IE 9] >
+<script src="__PUBLIC__/js/html5.js"></script>
+<![endif]-->
+<style type="text/css">
+tr{
+	cursor: pointer;
+	text-align: center;
+      font-size: 12px;
+}
+th{
+	text-align: center;
+      font-size: 12px;
+}
+
+a{
+   cursor: pointer;
+   font-size: 12px;
+   margin-left: 5px;
+   margin-right: 5px;
+}
+</style>
+
+<script type="text/javascript">
+
+   obj=new Confirm();
+   $(function(){
+      <if condition="$_GET['result'] eq 1">
+       layer.alert('操作成功!',1);
+      <elseif condition="$_GET['result'] eq 11"/>
+       layer.alert('操作失败!');
+      </if>
+   });
+</script>
+</head>
+
+<body>
+<div class="header"></div>
+<div class="article container-fuild">
+   <table class="table table-bordered table-hover table-condensed">
+   		<thead>
+			<tr>
+				<th>操作</th><th>序号</th><th>账号</th><th>邮箱</th><th>姓名</th><th>性别</th><th>婚否</th><th>角色</th><th>地址</th>
+			</tr>
+   		</thead>
+   		<tbody>
+   			<volist name="data" id="obj" key="i">
+   				<tr>
+   					<td>
+   					<a href="__APP__?m=Manager&a=editManager&mid={$obj['id']}">编辑</a>
+                  <a href="javascript:obj.delconfirm('__APP__?m=Manager&a=delManager&mid={$obj['id']}','{$obj.name}')">删除</a>
+   					</td>
+   					<td>{$i}</td>
+   					<td>{$obj['account']}</td>
+   					<td>{$obj['email']}</td>
+   					<td>{$obj['name']}</td>
+   					<td><if condition="($obj['sex'] eq 0) "> 男<else />女
+						</if></td>
+   					<td><if condition="($obj['marry'] eq 0)"> 未婚<elseif condition="($obj['marry'] eq 1)"/>已婚 <else/>离异
+						</if></td>
+   					<td>
+                       <volist name="role" id="vo" key="j">
+                        <if  condition="($obj['type'] eq $vo['id'])">
+                          {$vo.name}
+                         </if>
+                       </volist>                     
+   					</td>
+   					<td>{$obj['address']}</td>
+   				</tr>
+   			</volist>
+   		</tbody>
+   </table>
+   <div style="text-align:center;"><p>{$page}</p></div>
+</div>
+</body>
+</html>
